@@ -1,128 +1,109 @@
-"use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
-import { useState } from "react";
+import { Button } from "../ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Menu } from "lucide-react";
+import { getCookie } from "@/services/auth/tokenHandlers";
+import LogoutButton from "./LogoutButton";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
-type UserRole = "guest" | "user" | "admin";
+const PublicNavbar = async () => {
+  const accessToken = await getCookie("accessToken");
+  const userInfo = await getUserInfo();
 
-export default function PublicNavbar() {
-  // 🔹 Later replace this with your real auth state from Context/Redux/NextAuth
-  const [role] = useState<UserRole>("guest"); // guest | user | admin
+  const userRole = userInfo.role?.toUpperCase() || "USER";
 
   const commonLinks = [
-    { name: "Explore Travelers", href: "/explore" },
-    { name: "Find Travel Buddy", href: "/explore" },
+    { href: "/explore", label: "Explore Travelers" },
+    { href: "/explore", label: "Find Travel Buddy" },
   ];
 
   const userLinks = [
-    { name: "My Travel Plans", href: "/travel-plans" },
-    { name: "Profile", href: "/profile/me" },
+    { href: "/dashboard", label: "User Dashboard" },
   ];
 
   const adminLinks = [
-    { name: "Admin Dashboard", href: "/dashboard" },
-    { name: "Manage Users", href: "/dashboard/users" },
-    { name: "Manage Travel Plans", href: "/dashboard/travel-plans" },
+    { href: "/dashboard", label: "Admin Dashboard" },
   ];
 
-  const authLinks = [
-    { name: "Login", href: "/login" },
-    { name: "Register", href: "/register" },
-  ];
-
-  const [open, setOpen] = useState(false);
+  // Determine which links to render based on role
+  let roleLinks: any[] = [];
+  if (userRole === "ADMIN") roleLinks = adminLinks;
+  else if (userRole === "USER") roleLinks = userLinks;
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-
-        {/* 🔹 Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600">
-          MeetlinkO
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <Link href="/" className="flex items-center space-x-2">
+          <span className="text-xl font-bold text-primary">MeetlinkO</span>
         </Link>
 
-        {/* 🔹 Desktop Menu */}
-        <div className="hidden md:flex gap-6 items-center">
-          {commonLinks.map((item) => (
-            <Link key={item.name} href={item.href} className="hover:text-blue-600">
-              {item.name}
+        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+          {commonLinks.map((link) => (
+            <Link key={link.label} href={link.href} className="hover:text-primary transition-colors">
+              {link.label}
             </Link>
           ))}
 
-          {role === "user" &&
-            userLinks.map((item) => (
-              <Link key={item.name} href={item.href} className="hover:text-blue-600">
-                {item.name}
+          {accessToken &&
+            roleLinks.map((link) => (
+              <Link key={link.label} href={link.href} className="hover:text-primary transition-colors">
+                {link.label}
               </Link>
             ))}
+        </nav>
 
-          {role === "admin" &&
-            adminLinks.map((item) => (
-              <Link key={item.name} href={item.href} className="hover:text-blue-600">
-                {item.name}
-              </Link>
-            ))}
-
-          {role === "guest" &&
-            authLinks.map((item) => (
-              <Link key={item.name} href={item.href} className="hover:text-blue-600">
-                {item.name}
-              </Link>
-            ))}
-
-          {(role === "user" || role === "admin") && (
-            <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-              Logout
-            </button>
+        <div className="hidden md:flex items-center space-x-2">
+          {accessToken ? (
+            <LogoutButton />
+          ) : (
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
           )}
         </div>
 
-        {/* 🔹 Mobile Menu Button */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl"
-        >
-          ☰
-        </button>
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">
+                <Menu />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4">
+              <SheetTitle className="sr-only">MeetlinkO</SheetTitle>
+
+              <nav className="flex flex-col space-y-4 mt-8">
+                {commonLinks.map((link) => (
+                  <Link key={link.label} href={link.href} className="text-lg">
+                    {link.label}
+                  </Link>
+                ))}
+
+                {accessToken &&
+                  roleLinks.map((link) => (
+                    <Link key={link.label} href={link.href} className="text-lg">
+                      {link.label}
+                    </Link>
+                  ))}
+
+                <div className="border-t pt-4 flex flex-col space-y-4">
+                  {accessToken ? (
+                    <LogoutButton />
+                  ) : (
+                    <Link href="/login">
+                      <Button className="w-full">Login</Button>
+                    </Link>
+                  )}
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
-
-      {/* 🔹 Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-white border-t px-4 py-4 flex flex-col gap-4">
-          {commonLinks.map((item) => (
-            <Link key={item.name} href={item.href}>
-              {item.name}
-            </Link>
-          ))}
-
-          {role === "user" &&
-            userLinks.map((item) => (
-              <Link key={item.name} href={item.href}>
-                {item.name}
-              </Link>
-            ))}
-
-          {role === "admin" &&
-            adminLinks.map((item) => (
-              <Link key={item.name} href={item.href}>
-                {item.name}
-              </Link>
-            ))}
-
-          {role === "guest" &&
-            authLinks.map((item) => (
-              <Link key={item.name} href={item.href}>
-                {item.name}
-              </Link>
-            ))}
-
-          {(role === "user" || role === "admin") && (
-            <button className="bg-red-500 text-white py-2 rounded">
-              Logout
-            </button>
-          )}
-        </div>
-      )}
-    </nav>
+    </header>
   );
-}
+};
+
+export default PublicNavbar;
