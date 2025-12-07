@@ -3,9 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
-
-
 import { Bell, Menu, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import UserDropdown from "./UserDropdown";

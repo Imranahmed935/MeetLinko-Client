@@ -6,7 +6,7 @@ import { getIconComponent } from "@/lib/icon-mapper";
 import { cn } from "@/lib/utils";
 import { NavSection } from "@/types/dashboard.interface";
 import { UserInfo } from "@/types/user.interface";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area"; 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -22,9 +22,10 @@ const DashboardSidebarContent = ({
   dashboardHome,
 }: DashboardSidebarContentProps) => {
   const pathname = usePathname();
+
   return (
     <div className="hidden md:flex h-full w-64 flex-col border-r bg-card">
-      {/* Logo/Brand */}
+      {/* Logo */}
       <div className="flex h-16 items-center border-b px-6">
         <Link href={dashboardHome} className="flex items-center space-x-2">
           <span className="text-xl font-bold text-primary">MeetlinkO</span>
@@ -41,14 +42,15 @@ const DashboardSidebarContent = ({
                   {section.title}
                 </h4>
               )}
+
               <div className="space-y-1">
-                {section.items.map((item) => {
+                {section.items.map((item, index) => {
                   const isActive = pathname === item.href;
                   const Icon = getIconComponent(item.icon);
 
                   return (
                     <Link
-                      key={item.href}
+                      key={`${item.href}-${index}`}
                       href={item.href}
                       className={cn(
                         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all",
@@ -59,6 +61,7 @@ const DashboardSidebarContent = ({
                     >
                       <Icon className="h-4 w-4" />
                       <span className="flex-1">{item.title}</span>
+
                       {item.badge && (
                         <Badge
                           variant={isActive ? "secondary" : "default"}
@@ -71,6 +74,7 @@ const DashboardSidebarContent = ({
                   );
                 })}
               </div>
+
               {sectionIdx < navItems.length - 1 && (
                 <Separator className="my-4" />
               )}
@@ -87,8 +91,11 @@ const DashboardSidebarContent = ({
               {userInfo.fullName.charAt(0).toUpperCase()}
             </span>
           </div>
+
           <div className="flex-1 overflow-hidden">
-            <p className="text-sm font-medium truncate">{userInfo.fullName}</p>
+            <p className="text-sm font-medium truncate">
+              {userInfo.fullName}
+            </p>
             <p className="text-xs text-muted-foreground capitalize">
               {userInfo.role.toLowerCase()}
             </p>

@@ -13,7 +13,6 @@ import { UserInfo } from "@/types/user.interface";
 
 const DashboardSidebar = async () => {
   const userInfo = (await getUserInfo()) as unknown as UserInfo;
-  console.log(userInfo)
 
   const navItems: NavSection[] = getNavItemsByRole(userInfo.role);
   const dashboardHome = getDefaultDashboardRoute(userInfo.role);
