@@ -1,0 +1,96 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useActionState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "./ui/field";
+import { Input } from "./ui/input";
+import { loginUser } from "@/services/auth/loginUser";
+import { toast } from "sonner";
+
+const LoginForm = ({ redirect }: { redirect?: string }) => {
+  const [state, action, isPending] = useActionState(loginUser, null);
+  console.log(state);
+
+  const getFieldError = (fieldName: string) => {
+    if (state?.errors) {
+      const error = state.errors.find((err: any) => err.field === fieldName);
+      return error?.message;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    if (state && !state.success && state.message) {
+      toast.error(state.message);
+    }
+  }, [state]);
+
+  return (
+    <form action={action}>
+      {redirect && <input type="hidden" name="redirect" value={redirect} />}
+
+      <FieldGroup>
+        <div className="grid grid-cols-1 gap-4">
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="m@example.com"
+            />
+
+            {getFieldError("email") && (
+              <FieldDescription className="text-red-600">
+                {getFieldError("email")}
+              </FieldDescription>
+            )}
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+            />
+
+            {getFieldError("password") && (
+              <FieldDescription className="text-red-600">
+                {getFieldError("password")}
+              </FieldDescription>
+            )}
+          </Field>
+        </div>
+
+        <FieldGroup className="mt-4">
+          <Field>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Logging in..." : "Login"}
+            </Button>
+
+            <FieldDescription className="px-6 text-center">
+              Don&apos;t have an account?{" "}
+              <a href="/register" className="text-blue-600 hover:underline">
+                Sign up
+              </a>
+            </FieldDescription>
+
+            <FieldDescription className="px-6 text-center">
+              <a
+                href="/forget-password"
+                className="text-blue-600 hover:underline"
+              >
+                Forgot password?
+              </a>
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+      </FieldGroup>
+    </form>
+  );
+};
+
+export default LoginForm;

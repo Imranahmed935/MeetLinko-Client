@@ -9,7 +9,7 @@ const CommonLayoutPage = ({ children }: { children: React.ReactNode }) => {
         {children}
       </main>
       <PublicFooter />
-      
+    
     </div>
   );
 };
