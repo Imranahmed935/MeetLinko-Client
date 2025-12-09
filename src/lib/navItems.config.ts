@@ -161,7 +161,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
         },
         {
           title: "My Profile",
-          href: "/dashboard/my-profile/",
+          href: "/my-profile",
           icon: "User",
           roles: ["USER", "ADMIN"],
         },
@@ -176,6 +176,7 @@ export const userNavItems: NavSection[] = [
   {
     title: "Travel Plans",
     items: [
+      
       {
         title: "My Travel Plans",
         href: "/dashboard/my-plan",
@@ -238,13 +239,13 @@ export const adminNavItems: NavSection[] = [
     items: [
       {
         title: "All Users",
-        href: "/admin/dashboard/users",
+        href: "/admin/dashboard/all-users",
         icon: "Users",
         roles: ["ADMIN"],
       },
       {
         title: "All Travel Plans",
-        href: "/admin/dashboard/travel-plans",
+        href: "/admin/dashboard/all-plan",
         icon: "MapPin",
         roles: ["ADMIN"],
       },
