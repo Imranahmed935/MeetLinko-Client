@@ -21,8 +21,6 @@ export async function getMyPlans(id: string) {
     }
 }
 
-
-
 export async function createTravelPlan(
   _prevState: any,
   formData: FormData
@@ -62,7 +60,6 @@ export async function createTravelPlan(
     };
   }
 }
-
 
 export async function updateMyPlan(
   id: string,

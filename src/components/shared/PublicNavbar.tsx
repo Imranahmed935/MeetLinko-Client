@@ -14,9 +14,10 @@ const PublicNavbar = async () => {
   const userRole = userInfo.role?.toUpperCase() || "USER";
 
   const commonLinks = [
-    { href: "/explore", label: "Explore Travelers" },
-    { href: "/explore", label: "Find Travel Buddy" },
-  ];
+  { href: "/explore-travelers", label: "Explore Travelers" },
+  { href: "/find-buddy", label: "Find Travel Buddy" },
+];
+
 
   const userLinks = [
     { href: "/dashboard", label: "User Dashboard" },
