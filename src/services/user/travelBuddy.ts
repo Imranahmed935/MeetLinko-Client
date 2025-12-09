@@ -2,9 +2,9 @@
 "use server"
 import { serverFetch } from "@/lib/server-fetch";
 
-export async function exploreTravelers() {
+export async function travelBuddy() {
     try {
-        const response = await serverFetch.get(`/user`);
+        const response = await serverFetch.get(`/plan`);
         const result = await response.json();
         return {
             success: result.success,
@@ -21,10 +21,9 @@ export async function exploreTravelers() {
     }
 }
 
-export async function getExploreTravelerById(id: string) {
-  console.log(id)
+export async function getSingleTravelById(id: string) {
   try {
-    const response = await serverFetch.get(`/user/${id}`);
+    const response = await serverFetch.get(`/plan/${id}`);
 
     const result = await response.json();
     console.log(result)

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { UserInfo } from "@/types/user.interface";
+import Link from "next/link";
 
 interface TravelerCardProps {
   traveler: UserInfo;
@@ -43,9 +44,9 @@ export default function UserCard({ traveler }: TravelerCardProps) {
 
       <CardFooter>
         <Button className="w-full" asChild>
-          <a href={`/explore-travelers/${traveler.id}`}>
+          <Link href={`/explore-travelers/${traveler.id}`}>
             View Details <ArrowRight className="ml-2 w-4 h-4" />
-          </a>
+          </Link>
         </Button>
       </CardFooter>
     </Card>
