@@ -1,4 +1,3 @@
-
 import ReviewCard from "@/components/shared/ReviewCard";
 import { formatDateTime } from "@/lib/formatters";
 import { getSingleTravelById } from "@/services/user/travelBuddy";
@@ -11,7 +10,6 @@ const FindBuddyDetailsPage = async ({ params }: { params: { id: string } }) => {
   const travelerDetails = await getSingleTravelById(id);
   const details = travelerDetails.data.data;
   const { host, participants } = details;
-  
 
   const defaultProfileImage = "https://via.placeholder.com/150";
   const isHost = false;
@@ -77,15 +75,15 @@ const FindBuddyDetailsPage = async ({ params }: { params: { id: string } }) => {
               <li>**Participants:** {participants.length} currently joined</li>
               <li>**Reviews:** {details.reviews.length} total reviews</li>
             </ul>
-              <div className="space-y-4">
-                <h1>Reviews by participants</h1>
-                {
-                    details.reviews.map((review:TReview) =><ReviewCard
-                    key={review.reviewer.id}
-                    review={review}
-                    />)
-                }
-              </div>
+            <div className="space-y-4">
+              <h1>Reviews by participants</h1>
+              {details.reviews.map((review: TReview, idx: number) => (
+                <ReviewCard
+                  key={review.id || idx} 
+                  review={review}
+                />
+              ))}
+            </div>
           </section>
         </div>
 
@@ -136,7 +134,6 @@ const FindBuddyDetailsPage = async ({ params }: { params: { id: string } }) => {
           </div>
         </aside>
       </div>
-
     </div>
   );
 };

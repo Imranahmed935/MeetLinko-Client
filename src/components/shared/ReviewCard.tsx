@@ -34,12 +34,12 @@ const ReviewCard = ({ review }: IReviewType) => {
         </div>
       </div>
 
-      {/* Comment */}
+   
       <p className="text-gray-700 mb-3">
         {review.comment || "No comment provided."}
       </p>
 
-      {/* Rating */}
+    
       <div className="flex items-center gap-1">
         {Array.from({ length: 5 }).map((_, index) => (
           <Star

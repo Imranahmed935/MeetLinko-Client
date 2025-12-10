@@ -14,18 +14,16 @@ const PublicNavbar = async () => {
   const userRole = userInfo.role?.toUpperCase() || "USER";
 
   const commonLinks = [
-  { href: "/explore-travelers", label: "Explore Travelers" },
-  { href: "/find-buddy", label: "Find Travel Buddy" },
-];
-
-
-  const userLinks = [
-    { href: "/dashboard", label: "User Dashboard" },
+    { href: "/", label: "Home" },
+    { href: "/explore-travelers", label: "Explore Travelers" },
+    { href: "/find-buddy", label: "Find Travel Buddy" },
+    { href: "/about-us", label: "About Us" },
+    { href: "/contact-us", label: "Contact Us" },
   ];
 
-  const adminLinks = [
-    { href: "/dashboard", label: "Admin Dashboard" },
-  ];
+  const userLinks = [{ href: "/dashboard", label: "User Dashboard" }];
+
+  const adminLinks = [{ href: "/dashboard", label: "Admin Dashboard" }];
 
   // Determine which links to render based on role
   let roleLinks: any[] = [];
@@ -41,14 +39,22 @@ const PublicNavbar = async () => {
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {commonLinks.map((link) => (
-            <Link key={link.label} href={link.href} className="hover:text-primary transition-colors">
+            <Link
+              key={link.label}
+              href={link.href}
+              className="hover:text-primary transition-colors"
+            >
               {link.label}
             </Link>
           ))}
 
           {accessToken &&
             roleLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="hover:text-primary transition-colors">
+              <Link
+                key={link.label}
+                href={link.href}
+                className="hover:text-primary transition-colors"
+              >
                 {link.label}
               </Link>
             ))}
