@@ -1,3 +1,4 @@
+import AddComment from "@/components/AddComment";
 import ReviewCard from "@/components/shared/ReviewCard";
 import { formatDateTime } from "@/lib/formatters";
 import { getSingleTravelById } from "@/services/user/travelBuddy";
@@ -84,6 +85,9 @@ const FindBuddyDetailsPage = async ({ params }: { params: { id: string } }) => {
                 />
               ))}
             </div>
+            <div className="mt-10">
+            <AddComment details={details}/>
+          </div>
           </section>
         </div>
 

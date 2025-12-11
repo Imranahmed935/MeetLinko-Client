@@ -1,38 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use server"
+"use server";
+
 import { serverFetch } from "@/lib/server-fetch";
 
-export async function updateMyProfile(formData: FormData) {
-    try {
+export const updateProfile = async (_: any, formData: FormData) => {
+  console.log("FORM ENTRIES:", Array.from(formData.entries()));
 
-        const uploadFormData = new FormData();
-        const data: any = {};
-        formData.forEach((value, key) => {
-            if (key !== 'file' && value) {
-                data[key] = value;
-            }
-        });
+  const userId = formData.get("id")?.toString();
+  if (!userId) {
+    return { success: false, message: "User ID missing" };
+  }
 
+  const uploadFormData = new FormData();
 
-        uploadFormData.append('data', JSON.stringify(data));
-        const file = formData.get('file');
-        if (file && file instanceof File && file.size > 0) {
-            uploadFormData.append('file', file);
-        }
-
-        const response = await serverFetch.patch(`/user/update-my-profile`, {
-            body: uploadFormData,
-        });
-
-        const result = await response.json();
-
-        
-        return result;
-    } catch (error: any) {
-        console.log(error);
-        return {
-            success: false,
-            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`
-        };
+  // Create the user object
+  const userData: Record<string, any> = {};
+  formData.forEach((value, key) => {
+    if (key !== "file" && key !== "id") {
+      userData[key] = value;
     }
-}
+  });
+
+  // Append JSON data as string
+  uploadFormData.append("user", JSON.stringify(userData));
+
+  // Append file if selected
+  const file = formData.get("file");
+  if (file instanceof File && file.size > 0) {
+    uploadFormData.append("file", file);
+  }
+
+  const res = await serverFetch.patch(`/user/${userId}`, {
+    body: uploadFormData, // NO JSON.stringify
+  });
+
+  return res.json();
+};
