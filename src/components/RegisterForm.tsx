@@ -9,9 +9,11 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 
 const RegisterForm = () => {
-  const [state, formAction, isPending] = useActionState(registerUser, null);
+  const [state, action, isPending] = useActionState(registerUser, null);
 
   console.log(state)
+
+  
 
   useEffect(() => {
     if (state && !state.success && state.message) {
@@ -19,14 +21,15 @@ const RegisterForm = () => {
     }
   }, [state]);
 
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-center text-3xl mb-6">Create Your Account</h1>
         <form
-          action={formAction}
+          action={action}
           className="space-y-6"
-          encType="multipart/form-data"
+
         >
           <FieldGroup>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -47,14 +50,14 @@ const RegisterForm = () => {
               {/* Password */}
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input id="password" name="password" type="password" />
+                <Input id="password" name="password" type="password"  placeholder="password"/>
                 <InputFieldError field="password" state={state} />
               </Field>
 
               {/* Confirm Password */}
               <Field>
                 <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
-                <Input id="confirmPassword" name="confirmPassword" type="password" />
+                <Input id="confirmPassword" name="confirmPassword" type="password"  placeholder="confirm Password"/>
                 <InputFieldError field="confirmPassword" state={state} />
               </Field>
 
@@ -97,12 +100,6 @@ const RegisterForm = () => {
                   <option value="ADMIN">Admin</option>
                 </select>
                 <InputFieldError field="role" state={state} />
-              </Field>
-
-              {/* Profile Image */}
-              <Field className="md:col-span-2">
-                <FieldLabel htmlFor="file">Profile Image (optional)</FieldLabel>
-                <Input id="file" name="file" type="file" accept="image/*" />
               </Field>
             </div>
 

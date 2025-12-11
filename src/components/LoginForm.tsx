@@ -37,7 +37,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
               id="email"
               name="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="imran@example.com"
             />
 
             {getFieldError("email") && (

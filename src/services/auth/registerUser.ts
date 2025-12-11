@@ -1,21 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
-
-import { loginUser } from "./loginUser";
 import { userValidationSchema } from "@/zod/auth.validation";
+import { loginUser } from "./loginUser";
 
-export const registerUser = async (_currentState: any, formData: any): Promise<any> => {
+export const registerUser = async (_currentState: any, formData: any) => {
   try {
     const payload = {
       fullName: formData.get("fullName") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
       confirmPassword: formData.get("confirmPassword") as string,
-      bio: formData.get("bio") as string | undefined,
-      currentLocation: formData.get("currentLocation") as string | undefined,
+      currentLocation: formData.get("currentLocation") as string,
       role: (formData.get("role") as string) || "USER",
       travelInterests: ((formData.get("travelInterests") as string) || "")
         .split(",")
@@ -28,15 +25,19 @@ export const registerUser = async (_currentState: any, formData: any): Promise<a
     };
 
     const validation = zodValidator(payload, userValidationSchema);
+
     if (!validation.success) return validation;
 
-    const validatedPayload: any = validation.data;
+    const validatedPayload = validation.data;
 
     const newFormData = new FormData();
-    newFormData.append("data", JSON.stringify(validatedPayload));
+    newFormData.append("user", JSON.stringify(validatedPayload));
 
-    if (formData.get("file")) {
-      newFormData.append("file", formData.get("file") as Blob);
+    console.log(newFormData);
+
+    const file = formData.get("file");
+    if (file && file.size > 0) {
+      newFormData.append("file", file);
     }
 
     const res = await serverFetch.post("/user/register", {
@@ -45,20 +46,21 @@ export const registerUser = async (_currentState: any, formData: any): Promise<a
 
     const result = await res.json();
 
+    console.log(result)
+
     if (result.success) {
       await loginUser(_currentState, formData);
     }
 
     return result;
   } catch (error: any) {
-    console.log(error);
+    
+    if (error?.digest?.startsWith('NEXT_REDIRECT')) {
+            throw error;
+        }
     return {
       success: false,
-      message:
-        process.env.NODE_ENV === "development"
-          ? error.message
-          : "Registration Failed. Please try again.",
+      message: error.message || "Registration Failed. Please try again.",
     };
   }
 };
-
