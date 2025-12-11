@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# **MeetlinkO — Connect. Travel. Explore.**
 
-First, run the development server:
+MeetlinkO is a modern travel networking platform designed to help travelers connect, find compatible travel buddies, explore curated travel plans, and enjoy a seamless travel community experience. Built with a scalable architecture and polished UI, MeetlinkO provides real-time features, verified memberships, secure authentication, and an intuitive interface crafted for smooth interaction.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 **Features**
+
+### **👤 User Features**
+
+* Create and manage personal traveler profiles
+* Upload avatar, bio, travel interests, and visited countries
+* Explore profiles of verified travelers
+* Search and filter based on destination, date, and preferences
+
+### **🤝 Find Travel Buddy**
+
+* Smart match suggestions based on interests
+* View compatibility insights
+* Connect with travelers who share similar plans
+
+### **🗺️ Travel Plans & Explore**
+
+* Explore featured travel plans
+* View destinations, budgets, hosts, and schedules
+* Save and follow interesting travel plans
+
+### **💰 Subscription System**
+
+* Weekly, Monthly & Yearly premium plans
+* Verified Badge after successful payment
+* Stripe payment integration
+* Secure checkout & webhook validation
+
+### **🔐 Authentication & Security**
+
+* JWT-based secure login & registration
+* Role-based access control (Admin & User)
+* Protected routes and data validation
+
+### **📊 Admin Dashboards**
+
+* Manage users
+* Manage travel plans
+* View subscription data
+
+### **🛠️ Modern UI & UX**
+
+* Fully responsive
+* Clean and minimal interface
+* Built using Tailwind CSS & Shadcn UI components
+
+---
+
+## 🧰 **Tech Stack**
+
+### **Frontend**
+
+* **Next.js 15**
+* **React**
+* **Tailwind CSS**
+* **Shadcn UI**
+* **Stripe Checkout**
+* **Lucide Icons**
+
+### **Backend**
+
+* **Node.js**
+* **Express.js**
+* **Prisma ORM**
+* **MongoDB**
+
+### **Other Tools**
+
+* Stripe Webhooks
+* JWT Authentication
+* Middleware-based security
+
+---
+
+## ⚙️ **Installation & Setup**
+
+### **1. Clone the Repository**
+
+```sh
+git clone https://github.com/yourusername/meetlinko.git
+cd meetlinko
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **2. Install Dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### For Frontend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+cd client
+npm install
+```
 
-## Learn More
+#### For Backend
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+cd server
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔑 **Environment Variables**
 
-## Deploy on Vercel
+### **Backend `.env`**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+DATABASE_URL=your_mongodb_url
+JWT_SECRET=your_secret
+STRIPE_SECRET_KEY=your_key
+WEBHOOK_SECRET=your_webhook_secret
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Frontend `.env.local`**
+
+```
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_key
+NEXT_PUBLIC_BASE_API_URL=http://localhost:5000
+```
+
+---
+
+## ▶️ **Run the App**
+
+### **Backend**
+
+```sh
+npm run dev
+```
+
+### **Frontend**
+
+```sh
+npm run dev
+```
+
+---
+
+## 📦 **Folder Structure**
+
+```
+/client
+  /components
+  /app
+  /lib
+/server
+  /src
+    /controllers
+    /routes
+    /services
+    /prisma
+```
+
+
+
+
+
+
+
