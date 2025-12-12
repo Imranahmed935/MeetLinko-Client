@@ -12,9 +12,6 @@ const serverFetchHelper = async (
 
   const accessToken = await getCookie("accessToken");
 
-//   if (endpoint !== "/auth/refresh-token") {
-//     await getNewAccessToken();
-//   }
 
   const response = await fetch(`${BACKEND_URL}${endpoint}`, {
     headers: {

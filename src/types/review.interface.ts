@@ -15,3 +15,21 @@ export interface TReview {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface TReview1 {
+  id: string;
+  rating: number;
+  comment: string;
+  reviewer: {
+    fullName: string;
+    email: string;
+    profileImage?: string | null;
+  };
+  travelPlan: {
+    id: string;
+    title: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+

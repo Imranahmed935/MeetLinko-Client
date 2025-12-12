@@ -6,6 +6,7 @@ export async function exploreTravelers() {
     try {
         const response = await serverFetch.get(`/user`);
         const result = await response.json();
+        console.log(result)
         return {
             success: result.success,
             data: Array.isArray(result.data) ? result.data : [],

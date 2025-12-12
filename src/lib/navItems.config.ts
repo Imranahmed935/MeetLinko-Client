@@ -91,7 +91,18 @@ export const adminNavItems: NavSection[] = [
       },
     ],
   },
-  ...exploreNavItems, 
+  ...exploreNavItems,
+  {
+    title: "Settings",
+    items: [
+      {
+        title: "Change Password",
+        href: "/change-password",
+        icon: "Settings",
+        roles: ["USER", "ADMIN"],
+      },
+    ],
+  }, 
 ];
 
 

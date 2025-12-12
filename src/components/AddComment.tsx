@@ -17,8 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { serverFetch } from "@/lib/server-fetch";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { TTravelPlan } from "@/types/travelPlan.interface";
+import { useRouter } from "next/router";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface AddCommentProps {
   details: TTravelPlan;
@@ -28,7 +30,8 @@ interface AddCommentProps {
 const AddComment = ({ details, onReviewAdded }: AddCommentProps) => {
   const [userInfo, setUserInfo] = useState<{ id: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [open, setOpen] = useState(false); // control modal open state
+  const [open, setOpen] = useState(false); 
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,11 +67,13 @@ const AddComment = ({ details, onReviewAdded }: AddCommentProps) => {
       if (!res.ok) throw new Error("Failed to add review");
 
       const result = await res.json();
-      console.log("Review created:", result);
-
-      onReviewAdded?.(); // refresh parent reviews
-      setOpen(false); // close modal after submit
-      form.reset(); // optional: reset form fields
+      if(result.success){
+        toast.success("Review created Successfully!")
+      }
+      
+      onReviewAdded?.(); 
+      setOpen(false); 
+      form.reset(); 
     } catch (error) {
       console.error(error);
     } finally {
