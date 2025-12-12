@@ -1,19 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Menu } from "lucide-react";
-import { getCookie } from "@/services/auth/tokenHandlers";
 import LogoutButton from "./LogoutButton";
-import { getUserInfo } from "@/services/auth/getUserInfo";
 
-const PublicNavbar = async () => {
-  const accessToken = await getCookie("accessToken");
-  const userInfo = await getUserInfo();
+interface NavLink {
+  href: string;
+  label: string;
+}
 
-  const userRole = userInfo.role?.toUpperCase() || "USER";
+interface Props {
+  accessToken?: string;
+  roleLinks?: NavLink[];
+}
 
-  const commonLinks = [
+const PublicNavbar = ({ accessToken, roleLinks }: Props) => {
+  const pathname = usePathname();
+
+  const commonLinks: NavLink[] = [
     { href: "/", label: "Home" },
     { href: "/explore-travelers", label: "Explore Travelers" },
     { href: "/find-buddy", label: "Find Travel Buddy" },
@@ -21,46 +27,39 @@ const PublicNavbar = async () => {
     { href: "/contact-us", label: "Contact Us" },
   ];
 
-  const userLinks = [{ href: "/dashboard", label: "User Dashboard" }];
+  const allLinks = accessToken ? [...commonLinks, ...(roleLinks || [])] : commonLinks;
 
-  const adminLinks = [{ href: "/dashboard", label: "Admin Dashboard" }];
-
-  let roleLinks: any[] = [];
-  if (userRole === "ADMIN") roleLinks = adminLinks;
-  else if (userRole === "USER") roleLinks = userLinks;
+  const renderLink = (link: NavLink) => {
+    const isActive = pathname === link.href;
+    return (
+      <Link
+        key={link.label}
+        href={link.href}
+        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors
+          ${isActive ? "bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white" : "text-gray-700 hover:text-primary"}
+        `}
+      >
+        {link.label}
+      </Link>
+    );
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+          <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
             MeetLinkO
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          {commonLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="hover:text-primary transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          {accessToken &&
-            roleLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-4">
+          {allLinks.map(renderLink)}
         </nav>
 
+        {/* Desktop Login / Logout */}
         <div className="hidden md:flex items-center space-x-2">
           {accessToken ? (
             <LogoutButton />
@@ -71,6 +70,7 @@ const PublicNavbar = async () => {
           )}
         </div>
 
+        {/* Mobile Menu */}
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -80,22 +80,10 @@ const PublicNavbar = async () => {
             </SheetTrigger>
 
             <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4">
-              <SheetTitle className="sr-only">MeetlinkO</SheetTitle>
+              <SheetTitle className="sr-only">Menu</SheetTitle>
 
               <nav className="flex flex-col space-y-4 mt-8">
-                {commonLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="text-lg">
-                    {link.label}
-                  </Link>
-                ))}
-
-                {accessToken &&
-                  roleLinks.map((link) => (
-                    <Link key={link.label} href={link.href} className="text-lg">
-                      {link.label}
-                    </Link>
-                  ))}
-
+                {allLinks.map(renderLink)}
                 <div className="border-t pt-4 flex flex-col space-y-4">
                   {accessToken ? (
                     <LogoutButton />

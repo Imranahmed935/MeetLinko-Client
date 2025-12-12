@@ -24,6 +24,18 @@ export const getReviews = async (id: string ) => {
 };
 
 
+export const getAllTestimonial = async () => {
+  try {
+    const res = await serverFetch.get("/review");
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+
 export const updateReview = async (id: string, payload: Partial<ReviewPayload>) => {
   try {
     const res = await serverFetch.patch(`/review/${id}`, {

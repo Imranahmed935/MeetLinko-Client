@@ -81,7 +81,7 @@ const TravelBuddICard = ({ travelPlan }: { travelPlan: TTravelPlan }) => {
                 src={hostProfileImage}
                 width={36}
                 height={36}
-                alt={hostFullName}
+                alt={"u"}
                 className="rounded-full object-cover border-2 border-blue-400"
               />
 

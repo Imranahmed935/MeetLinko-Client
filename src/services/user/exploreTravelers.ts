@@ -2,25 +2,6 @@
 "use server"
 import { serverFetch } from "@/lib/server-fetch";
 
-// export async function exploreTravelers() {
-//     try {
-//         const response = await serverFetch.get(`/user`);
-//         const result = await response.json();
-//         console.log(result)
-//         return {
-//             success: result.success,
-//             data: Array.isArray(result.data) ? result.data : [],
-//             meta: result.meta,
-//         };
-//     } catch (error: any) {
-//         console.log(error);
-//         return {
-//             success: false,
-//             data: [],
-//             message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`
-//         };
-//     }
-// }
 
 export async function exploreTravelers(filters?: { interest?: string; page?: number; limit?: number }) {
     try {

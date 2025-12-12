@@ -7,6 +7,7 @@ import { Users, Airplay, Star } from "lucide-react";
 import DailyUsers from "@/components/shared/DailyUsers";
 import DailyPlan from "@/components/shared/DailyPlan";
 import DailyReview from "@/components/shared/DailyReview";
+import VerifiedUser from "@/components/shared/VerifiedUser";
 
 const AdminDashboardPage = () => {
   const [stats, setStats] = useState<{
@@ -78,6 +79,9 @@ const AdminDashboardPage = () => {
         <DailyUsers />
         <DailyPlan />
         <DailyReview />
+      </div>
+      <div>
+        <VerifiedUser/>
       </div>
     </div>
   );

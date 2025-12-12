@@ -3,6 +3,7 @@ import { TTravelPlan } from "./travelPlan.interface";
 import { TReview } from "./review.interface";
 
 export interface UserInfo {
+  contactNumber: string;
   user: any;
   admin:any
   id: string;

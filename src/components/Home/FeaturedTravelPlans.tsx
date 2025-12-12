@@ -2,9 +2,9 @@ import { Plane, Calendar, Wallet, Users } from "lucide-react";
 
 export default function FeaturedTravelPlans() {
   const plans = [
-    { place: "Thailand", date: "Jan - Feb", budget: "$1200", link: "/find-buddy/thailand" },
-    { place: "Japan", date: "March", budget: "$2000", link: "/find-buddy/japan" },
-    { place: "Turkey", date: "April", budget: "$1500", link: "/find-buddy/turkey" },
+    { place: "Thailand", date: "Jan - Feb", budget: "$1200", link: "/find-buddy" },
+    { place: "Japan", date: "March", budget: "$2000", link: "/find-buddy" },
+    { place: "Turkey", date: "April", budget: "$1500", link: "/find-buddy" },
   ];
 
  

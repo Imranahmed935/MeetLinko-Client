@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,16 +20,17 @@ import { Pencil, Camera } from "lucide-react";
 import { UserInfo } from "@/types/user.interface";
 import { updateProfile } from "@/services/auth/updateProfile";
 
+
+
 export function UserUpdateDialog({ userInfo }: { userInfo: UserInfo }) {
   const [state, action, isPending] = useActionState(updateProfile, null);
+  
 
-  // local image preview
   const [previewImage, setPreviewImage] = useState<string | null>(
     userInfo.profileImage || null
   );
 
-  const handleFilePreview = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
+  const handleFilePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -49,15 +49,16 @@ export function UserUpdateDialog({ userInfo }: { userInfo: UserInfo }) {
 
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
-            Edit Profile
-          </DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Edit Profile</DialogTitle>
           <DialogDescription>
             Update your personal information and profile photo.
           </DialogDescription>
         </DialogHeader>
 
-        <form action={action} className="space-y-4">
+        <form
+          action={action}
+          className="space-y-4"
+        >
           <input type="hidden" name="id" value={userInfo.id} />
 
           <div className="grid gap-6 mt-4">

@@ -28,7 +28,9 @@ const DashboardSidebarContent = ({
       {/* Logo */}
       <div className="flex h-16 items-center border-b px-6">
         <Link href={dashboardHome} className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">MeetlinkO</span>
+          <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+            MeetLinkO
+          </span>
         </Link>
       </div>
 
