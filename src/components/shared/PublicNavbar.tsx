@@ -25,7 +25,6 @@ const PublicNavbar = async () => {
 
   const adminLinks = [{ href: "/dashboard", label: "Admin Dashboard" }];
 
-  // Determine which links to render based on role
   let roleLinks: any[] = [];
   if (userRole === "ADMIN") roleLinks = adminLinks;
   else if (userRole === "USER") roleLinks = userLinks;
@@ -34,7 +33,9 @@ const PublicNavbar = async () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">MeetlinkO</span>
+          <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+            MeetLinkO
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
