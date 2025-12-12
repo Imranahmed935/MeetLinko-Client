@@ -2,25 +2,51 @@
 "use server"
 import { serverFetch } from "@/lib/server-fetch";
 
-export async function exploreTravelers() {
+// export async function exploreTravelers() {
+//     try {
+//         const response = await serverFetch.get(`/user`);
+//         const result = await response.json();
+//         console.log(result)
+//         return {
+//             success: result.success,
+//             data: Array.isArray(result.data) ? result.data : [],
+//             meta: result.meta,
+//         };
+//     } catch (error: any) {
+//         console.log(error);
+//         return {
+//             success: false,
+//             data: [],
+//             message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`
+//         };
+//     }
+// }
+
+export async function exploreTravelers(filters?: { interest?: string; page?: number; limit?: number }) {
     try {
-        const response = await serverFetch.get(`/user`);
+        const queryParams = new URLSearchParams();
+
+        if (filters?.interest) queryParams.append("interest", filters.interest);
+        if (filters?.page) queryParams.append("page", String(filters.page));
+        if (filters?.limit) queryParams.append("limit", String(filters.limit));
+
+        const response = await serverFetch.get(`/user?${queryParams.toString()}`);
         const result = await response.json();
-        console.log(result)
+
         return {
             success: result.success,
             data: Array.isArray(result.data) ? result.data : [],
             meta: result.meta,
         };
     } catch (error: any) {
-        console.log(error);
         return {
             success: false,
             data: [],
-            message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`
+            message: error.message,
         };
     }
 }
+
 
 export async function getExploreTravelerById(id: string) {
   console.log(id)
