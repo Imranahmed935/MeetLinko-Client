@@ -1,4 +1,3 @@
-
 import { NavSection } from "@/types/dashboard.interface";
 import { UserRole } from "./auth-utils";
 import { exploreNavItems } from "@/components/shared/ExploreNavItems";
@@ -12,7 +11,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
         {
           title: "Dashboard",
           href: defaultDashboard,
-          icon: "LayoutDashboard", 
+          icon: "LayoutDashboard",
           roles: ["USER", "ADMIN"],
         },
         {
@@ -23,10 +22,8 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
         },
       ],
     },
-    
   ];
 };
-
 
 export const userNavItems: NavSection[] = [
   {
@@ -63,8 +60,18 @@ export const userNavItems: NavSection[] = [
       },
     ],
   },
+  {
+    title: "General",
+    items: [
+      {
+        title: "Home",
+        href: "/",
+        icon: "Home",
+        roles: ["USER", "ADMIN"],
+      },
+    ],
+  },
 ];
-
 
 // Admin-specific navigation
 export const adminNavItems: NavSection[] = [
@@ -84,9 +91,9 @@ export const adminNavItems: NavSection[] = [
         roles: ["ADMIN"],
       },
       {
-        title: "Activities",
-        href: "/admin/dashboard/activities",
-        icon: "Activity",
+        title: "All Review",
+        href: "/admin/dashboard/all-review",
+        icon: "Review",
         roles: ["ADMIN"],
       },
     ],
@@ -102,9 +109,19 @@ export const adminNavItems: NavSection[] = [
         roles: ["USER", "ADMIN"],
       },
     ],
-  }, 
+  },
+  {
+    title: "General",
+    items: [
+      {
+        title: "Home",
+        href: "/",
+        icon: "Home",
+        roles: ["USER", "ADMIN"],
+      },
+    ],
+  },
 ];
-
 
 export const getNavItemsByRole = (role: UserRole): NavSection[] => {
   const commonNavItems = getCommonNavItems(role);

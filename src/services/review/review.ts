@@ -27,17 +27,17 @@ export const getReviews = async (id: string ) => {
 export const updateReview = async (id: string, payload: Partial<ReviewPayload>) => {
   try {
     const res = await serverFetch.patch(`/review/${id}`, {
-      method: "PATCH", // PATCH method
+      method: "PATCH", 
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload), // send updated fields
+      body: JSON.stringify(payload), 
     });
 
     if (!res.ok) throw new Error("Failed to update review");
 
     const data = await res.json();
-    return data; // { success, message, data }
+    return data; 
   } catch (error) {
     console.error("Error updating review:", error);
     return null;

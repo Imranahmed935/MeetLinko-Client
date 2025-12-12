@@ -2,6 +2,7 @@ import { TReview } from "./review.interface";
 import { UserInfo } from "./user.interface";
 
 export interface TTravelPlan {
+  interests: any;
   id: string;
   title: string;
   destination: string;

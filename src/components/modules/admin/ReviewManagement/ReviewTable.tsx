@@ -7,15 +7,16 @@ import { toast } from "sonner";
 import { TReview } from "@/types/review.interface";
 import DeleteConfirmationDialog from "@/components/shared/DeleteConfirmaionDialog";
 
-import { MyReviewColumns } from "./MyReviewColumns";
+
 import { deleteReview } from "@/services/review/review";
+import { ReviewColumns } from "./ReviewColumns";
+import { AdminDeleteReview } from "@/services/admin/allReview";
 
 interface MyReviewTableProps {
   reviews: TReview[];
-  onEdit: (review: TReview) => void;
 }
 
-const MyReviewTable = ({ reviews, }: MyReviewTableProps) => {
+const ReviewTable = ({ reviews,}: MyReviewTableProps) => {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
@@ -36,7 +37,7 @@ const MyReviewTable = ({ reviews, }: MyReviewTableProps) => {
     if (!deletingReview?.id) return;
 
     setIsDeleting(true);
-    const result = await deleteReview(deletingReview.id);
+    const result = await AdminDeleteReview(deletingReview.id);
     setIsDeleting(false);
 
     if (result.success) {
@@ -52,7 +53,7 @@ const MyReviewTable = ({ reviews, }: MyReviewTableProps) => {
     <>
       <ManagementTable
         data={reviews}
-        columns={MyReviewColumns}
+        columns={ReviewColumns}
         onDelete={handleDelete}
         getRowKey={(review) => review.id!}
         emptyMessage="No reviews found"
@@ -70,4 +71,4 @@ const MyReviewTable = ({ reviews, }: MyReviewTableProps) => {
   );
 };
 
-export default MyReviewTable;
+export default ReviewTable;
