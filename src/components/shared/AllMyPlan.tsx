@@ -56,7 +56,7 @@ const AllMyPlan = () => {
         <Button onClick={() => setFormDialogOpen(true)}>Create New Plan</Button>
       </div>
 
-      {plans.length === 0 ? (
+      {plans?.length === 0 ? (
         <p className="text-muted-foreground">You have no travel plans yet.</p>
       ) : (
        <MyPlanTable plans={plans}/>

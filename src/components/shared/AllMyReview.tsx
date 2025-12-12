@@ -59,7 +59,7 @@ const AllMyReview = () => {
         <h1 className="text-2xl font-bold">My Reviews</h1>
       </div>
 
-      {reviews.length === 0 ? (
+      {reviews?.length === 0 ? (
         <p className="text-muted-foreground">You have not submitted any reviews yet.</p>
       ) : (
         <MyReviewTable reviews={reviews} onEdit={handleEditReview} />

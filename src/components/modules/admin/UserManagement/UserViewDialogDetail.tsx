@@ -117,7 +117,7 @@ const UserViewDialogDetail = ({
                   <p className="font-medium mb-2">Visited Countries</p>
                   <div className="flex flex-wrap gap-2">
                     {user.visitedCountries &&
-                    user.visitedCountries.length > 0 ? (
+                    user.visitedCountries?.length > 0 ? (
                       user.visitedCountries.map((country, index) => (
                         <Badge
                           key={index}
@@ -138,7 +138,7 @@ const UserViewDialogDetail = ({
                 <div>
                   <p className="font-medium mb-2">Travel Interests</p>
                   <div className="flex flex-wrap gap-2">
-                    {user.travelInterests && user.travelInterests.length > 0 ? (
+                    {user.travelInterests && user.travelInterests?.length > 0 ? (
                       user.travelInterests.map((interest, index) => (
                         <Badge
                           key={index}

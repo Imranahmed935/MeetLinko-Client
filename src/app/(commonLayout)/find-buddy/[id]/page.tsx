@@ -73,8 +73,8 @@ const FindBuddyDetailsPage = async ({ params }: { params: { id: string } }) => {
               <li>
                 **Visibility:** {details.visibility ? "Public" : "Private"}
               </li>
-              <li>**Participants:** {participants.length} currently joined</li>
-              <li>**Reviews:** {details.reviews.length} total reviews</li>
+              <li>**Participants:** {participants?.length} currently joined</li>
+              <li>**Reviews:** {details.reviews?.length} total reviews</li>
             </ul>
             <div className="space-y-4">
               <h1>Reviews by participants</h1>

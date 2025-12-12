@@ -76,7 +76,7 @@ const ClearFiltersButton = ({
   // Count active filters (excluding preserved params and excluded from count params)
   const activeFiltersCount = Array.from(searchParams.keys()).filter(
     (key) => !preserveParams.includes(key) && !excludeFromCount.includes(key)
-  ).length;
+  )?.length;
 
   const handleClear = () => {
     // Run before clear handler

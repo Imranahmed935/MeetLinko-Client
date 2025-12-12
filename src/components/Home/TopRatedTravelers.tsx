@@ -86,7 +86,7 @@ export default function TopRatedTravelers() {
 
               {/* Review Count */}
               <p className="text-sm text-gray-500 mt-1">
-                {user.reviews.length} reviews
+                {user.reviews?.length} reviews
               </p>
 
               {/* View Profile Button */}

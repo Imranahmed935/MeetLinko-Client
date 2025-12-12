@@ -34,7 +34,7 @@ const ReviewPage = () => {
       </div>
 
       <Suspense  fallback={<TableSkeleton columns={10} rows={10} />}>
-        {reviews.length === 0 ? (
+        {reviews?.length === 0 ? (
         <p className="text-muted-foreground">You have not submitted any reviews yet.</p>
       ) : (
         <ReviewTable reviews={reviews} />

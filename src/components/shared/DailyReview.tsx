@@ -47,7 +47,7 @@ const DailyReview = () => {
               label={({ percent }) => `${(percent! * 100).toFixed(1)}%`} // show percentage inside slices
             >
               {dailyReviews.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                <Cell key={i} fill={COLORS[i % COLORS?.length]} />
               ))}
             </Pie>
             <Tooltip

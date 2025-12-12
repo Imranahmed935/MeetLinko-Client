@@ -93,7 +93,7 @@ const DailyUsers = () => {
             <div key={index} className="flex items-center gap-3">
               <span
                 className="w-3 h-3 rounded-full"
-                style={{ background: COLORS[index % COLORS.length] }}
+                style={{ background: COLORS[index % COLORS?.length] }}
               ></span>
               <p className="text-sm text-gray-700 font-medium">
                 {item.date} —{" "}

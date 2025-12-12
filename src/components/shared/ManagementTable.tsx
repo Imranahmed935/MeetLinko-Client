@@ -136,10 +136,10 @@ function ManagementTable<T>({
           </TableHeader>
 
           <TableBody>
-            {data.length === 0 ? (
+            {data?.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length + (hasActions ? 1 : 0)}
+                  colSpan={columns?.length + (hasActions ? 1 : 0)}
                   className="text-center py-8 text-muted-foreground"
                 >
                   {emptyMessage}

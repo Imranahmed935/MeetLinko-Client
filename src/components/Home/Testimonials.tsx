@@ -10,7 +10,7 @@ const Stars = ({ rating }: { rating: number }) => {
   const totalStars = 5;
   return (
     <div className="flex justify-center mb-3">
-      {Array.from({ length: totalStars }).map((_, i) => (
+      {Array.from({ length: totalStars })?.map((_, i) => (
         <span key={i} className={i < rating ? "text-yellow-500" : "text-gray-300"}>
           ★
         </span>
@@ -35,7 +35,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-12">Testimonials</h2>
 
-        {reviews.length > 0 ? (
+        {reviews?.length > 0 ? (
           <Marquee pauseOnHover gradient={false} speed={40}>
             {reviews.map((review: any) => (
               <div

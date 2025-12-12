@@ -43,7 +43,7 @@ const FindBuddy = () => {
     router.push(`?${params.toString()}`);
   };
 
-  if (!plans || plans.length === 0) {
+  if (!plans || plans?.length === 0) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center bg-gray-50 p-8">
         <p className="text-xl text-gray-500">
